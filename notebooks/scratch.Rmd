@@ -1,0 +1,76 @@
+---
+title: "Scratch"
+author: "Ben Horvath"
+date: "5/27/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+options(scipen=999, digits=2)
+
+# setwd('~/nuforc_stats/')
+
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(stringr)
+
+# load
+# df <- read.csv('./data/nuforc/processed/nuforc_reports.tsv', sep='\t', stringsAsFactors=FALSE)
+df <- reports
+```
+
+# Over time
+
+```{r}
+df %>%
+  group_by(year) %>%
+  summarise(n=n()) %>%
+  ggplot(aes(x=year, y=n)) +
+    geom_line()
+```
+
+
+
+# By state, by population
+
+
+
+# By shapes
+
+
+
+# By month of year
+
+```{r}
+df %>%
+  group_by(state, month) %>%
+  ggplot(aes(x=month, colour=as.factor(state))) +
+    geom_density()
+```
+
+Look at specific states in the book:
+
+```{r}
+df %>%
+  filter(state == 'NY') %>%
+  group_by(month) %>%
+  summarise(n=n()) %>%
+  ggplot(aes(x=as.factor(month), y=n)) +
+    geom_col()
+
+df %>%
+  filter(state == 'FL') %>%
+  group_by(month) %>%
+  summarise(n=n()) %>%
+  ggplot(aes(x=as.factor(month), y=n)) +
+    geom_col()
+
+df %>%
+  filter(state == 'NM') %>%
+  group_by(month) %>%
+  summarise(n=n()) %>%
+  ggplot(aes(x=as.factor(month), y=n)) +
+    geom_col()
+```
