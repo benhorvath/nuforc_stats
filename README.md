@@ -1,12 +1,8 @@
 # NUFORC Database Statistics and Analysis
 
+Repository storing analyses of unidentified aeriel phenomona reports from the NUFORC database.
 
 
+## Notebooks
 
-## Data sources
-
-A cleaned NUFORC dataset, covering the beginning through 2014, is available on
-Github from @planetsig: https://github.com/planetsig/ufo-reports/.
-
-For 2015-2020 recoreds, I used the code from Timothy Renner to scrape these
-records from the site directly. See his Github repo: https://github.com/timothyrenner/nuforc_sightings_data/.
+1. `1_population.rmd`: Contains a list of UAP 'hot spots,' after a simple linear regression model 'controls' for the overwhelming effect of population density.
