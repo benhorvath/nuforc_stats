@@ -6,6 +6,12 @@ output:
   html_document:
     toc: true
     number_sections: true
+    theme: null
+    css: ../static/architect.css
+    template: ../static/architect.html
+    pandoc_args: [
+      "--mathjax", "",
+      "--variable", "mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"]
 abstract: This work examines ...</br></br></br>
 ---
 

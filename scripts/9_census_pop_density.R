@@ -42,6 +42,10 @@ st_mapping <- c(Alabama='AL', Alaska='AK', Arizona='AZ', Arkansas='AR',
 
 appellations <- 'CDP|city|town|municipality|borough|NA|village|government|County|county|township|corporation|comunidad|urban'
 
+# Can also get back to 2010 with:
+# census <- get_estimates(geography='place', product='population', time_series=TRUE)
+# see PERIOD_CODE for labels: https://www.census.gov/data/developers/data-sets/popest-popproj/popest/popest-vars/2019.html
+
 # Retrieve city population 
 census <- get_estimates(geography='place', product='population', year=2019) %>%
   tidyr::pivot_wider(names_from='variable', values_from='value') %>%
@@ -56,3 +60,19 @@ census <- get_estimates(geography='place', product='population', year=2019) %>%
 head(census)
 
 write.csv(census, '../data/census/processed/pop.csv', row.names=FALSE)
+
+
+# Get county level estimates
+county <- get_estimates(geography='county', product='population', time_series=TRUE) %>%
+  tidyr::pivot_wider(names_from='variable', values_from='value') %>%
+  janitor::clean_names() %>%
+  mutate(year = date + 2009,
+         county_fips = as.numeric(geoid)) %>%
+  mutate(county_name = str_trim(str_extract(name, '^([^,])+')),
+         county_name = str_trim(str_remove(county_name, appellations)),
+         state =  str_trim(str_extract(name, '([^,])*$')),
+         state_abr = recode(state, !!!st_mapping)) %>%
+  dplyr::select(year, state, state_abr, county_fips, county_name, pop, density)
+  
+write.csv(county, '../data/census/processed/county_pop.csv', row.names=FALSE)
+  

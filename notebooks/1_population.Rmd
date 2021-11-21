@@ -148,7 +148,7 @@ summary(m)
 
 All variables, including the interaction term, are highly significant. A comprehensive analysis of the model's residuals indicates that the model meets the assumptions of linear regression (but see the appendix for more). Thus, a city's $i$'s number of UAP sightings $n$ over the period 2000--2020 (on average) can be estimated by the equation:
 
-$$n_i = -1.1885 + 0.2270~log(density_i) - 0.5077~log(area_i) +  0.1430~log(density_i)~log(area_i)$$
+$$n_i = exp(-1.1885 + 0.2270~log(density_i) - 0.5077~log(area_i) +  0.1430~log(density_i)~log(area_i))$$
 
 Interpreting the fit parameters is complicated by the model's structure. The interaction term necessarily implies that the association between density and the number of UAP observations varies according to the size of the land area, and vice versa. A graphical display communicates the model more succinctly:
 
